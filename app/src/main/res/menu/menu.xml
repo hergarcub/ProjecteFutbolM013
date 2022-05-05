@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/Home"
+        android:title="Home" />
+    <item
+        android:id="@+id/Login"
+        android:title="Login" />
+    <item
+        android:id="@+id/Resultados"
+        android:title="Resultados" />
+    <item
+        android:id="@+id/Clasificacion"
+        android:title="Clasificacion" />
+    <item
+        android:id="@+id/Goleadores"
+        android:title="Goleadores" />
+    <item
+        android:id="@+id/Jornades"
+        android:title="Jornades" />
+    <item
+        android:id="@+id/Settings"
+        android:title="Settings" />
+</menu>
