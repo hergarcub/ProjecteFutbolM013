@@ -2,6 +2,8 @@ package cat.inspedralbes.projectefutbol.GarHerManGabVicDan;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main_noticias);
     }
 
 
@@ -38,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.Resultados:
+                Intent sendIntent = new Intent(this, Resultados.class );
+
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
 
                 return true;
 
