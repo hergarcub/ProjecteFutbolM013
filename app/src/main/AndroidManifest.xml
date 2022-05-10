@@ -13,10 +13,6 @@
             android:name=".Resultados"
             android:exported="true" />
         <activity
-            android:name=".SettingsActivity"
-            android:exported="true"
-            android:label="@string/title_activity_settings" />
-        <activity
             android:name=".Jornada"
             android:exported="true" />
         <activity
