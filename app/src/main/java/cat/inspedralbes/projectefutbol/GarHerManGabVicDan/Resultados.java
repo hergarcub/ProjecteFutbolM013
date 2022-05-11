@@ -6,8 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class Resultados extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -20,11 +25,16 @@ public class Resultados extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerViewResultados);
         partidos = new ArrayList<>();
         Partido partido = new Partido();
+        for (int i = 0; i < 10; i++){
 
-        partido.setResultado("4-0");
-        partido.setEquipo1("FC Barcelona");
-        partido.setEquipo2("Real Madrid");
-        partidos.add(partido);
+            partido.setResultado("4-0");
+            partido.setEquipo1("FC Barcelona");
+            partido.setEquipo2("Real Madrid");
+            partidos.add(partido);
+        }
+
+
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         AdapterResultador adapterResultador = new AdapterResultador(partidos);
         recyclerView.setAdapter(adapterResultador);

@@ -1,5 +1,6 @@
 package cat.inspedralbes.projectefutbol.GarHerManGabVicDan;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,10 +34,16 @@ public class AdapterResultador extends RecyclerView.Adapter<AdapterResultador.Vi
             resultado.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    Intent intentDetails = new Intent(v.getContext(), DetallesPartido.class);
+                    v.getContext().startActivity(intentDetails);
                 }
+
+
             });
         }
+
+
+
         public TextView getEquipo1() {
             return equipo1;
         }
@@ -55,12 +62,10 @@ public class AdapterResultador extends RecyclerView.Adapter<AdapterResultador.Vi
 
     @Override
     public AdapterResultador.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        // create a new view
         LayoutInflater inflater = LayoutInflater.from(
                 parent.getContext());
         View v =
                 inflater.inflate(R.layout.item_adapter, parent, false);
-        // set the view's size, margins, paddings and layout parameters
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }
