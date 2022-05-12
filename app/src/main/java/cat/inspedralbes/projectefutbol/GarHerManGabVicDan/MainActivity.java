@@ -32,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.Home:
-
+                Intent intent = new Intent(this, Home.class);
+                startActivity(intent);
                 return true;
 
             case R.id.Login:
@@ -53,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.Goleadores:
 
+                Intent intentGoleador = new Intent(this, Goleadores.class);
+                startActivity(intentGoleador);
                 return true;
 
             case R.id.Jornades:
