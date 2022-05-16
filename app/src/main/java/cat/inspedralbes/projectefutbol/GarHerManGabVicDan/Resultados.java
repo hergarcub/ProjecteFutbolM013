@@ -1,12 +1,11 @@
 package cat.inspedralbes.projectefutbol.GarHerManGabVicDan;
 
 import android.os.Bundle;
-import android.provider.Settings;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,7 +22,7 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import okhttp3.ResponseBody;
+
 
 
 public class Resultados extends AppCompatActivity {
@@ -41,10 +40,12 @@ public class Resultados extends AppCompatActivity {
         setContentView(R.layout.activity_resultados);
         recyclerView = findViewById(R.id.recyclerViewResultados);
         partidos = new ArrayList<>();
-        partido = new Partido();
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        AdapterResultador adapterResultador = new AdapterResultador(partidos);
 
         consultaTabla();
-
+        recyclerView.setAdapter(adapterResultador);
     }
 
     private void consultaTabla() {
@@ -62,17 +63,11 @@ public class Resultados extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
 
-                try (ResponseBody responseBody = response.body()) {
-                    if (!response.isSuccessful())
-                        throw new IOException("Unexpected code " + response);
-
-                    Log.d("Response", "Entra");
-
                     try {
-
                         JSONObject jsObject = new JSONObject(response.body().string());
                         JSONArray jsonArray = jsObject.getJSONArray("records");
                         for (int i = 0; i < jsonArray.length(); i++) {
+                            partido = new Partido();
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
                             //Guarda resultado del partido
                             resultado = jsonObject.getString("RESULTADO");
@@ -92,35 +87,22 @@ public class Resultados extends AppCompatActivity {
                             partido.setEquipo2(nom_equipo2);
                             partidos.add(partido);
 
-                            Log.i("Dentro Objeto", partido.getEquipo1() + " " + partido.getResultado() + " " + partido.getEquipo2());
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
                         Log.d("Prova", "Falla Json");
                     }
-                }
             }
         });
-
-
-
-        Log.i("Fuera", nom_equipo1 + " " + resultado + " " + nom_equipo2);
-        Log.i("FueraLista", partido.getEquipo1() + " " + partido.getResultado() + " " + partido.getEquipo2());
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        AdapterResultador adapterResultador = new AdapterResultador(partidos);
-        recyclerView.setAdapter(adapterResultador);
     }
-
-
 }
 
 /*
-for (int i = 0; i < 10; i++) {
-        partido.setResultado("2-2");
-        partido.setEquipo1("FC Barcelona");
-        partido.setEquipo2("Real Madrid");
-        partidos.add(partido);
+        for (int i = 0; i < 10; i++) {
+            partido.setResultado("2-2");
+            partido.setEquipo1("FC Barcelona");
+            partido.setEquipo2("Real Madrid");
+            partidos.add(partido);
         }
 */
 
