@@ -24,108 +24,78 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class Resultados extends AppCompatActivity {
-    private RecyclerView recyclerView;
+    final OkHttpClient client = new OkHttpClient();
+    RecyclerView recyclerView;
     List<Partido> partidos;
     Partido partido;
-    int id_equipo1;
+    String nom_equipo1;
     String resultado;
-    int id_equipo2;
+    String nom_equipo2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resultados);
         recyclerView = findViewById(R.id.recyclerViewResultados);
         partidos = new ArrayList<>();
-
-        consultaResultados();
-        consultaEquipos();
-
-
-    }
-    public void consultaResultados(){
-        final OkHttpClient client = new OkHttpClient();
-
-        Request request = new Request.Builder()
-                .url("http://a18gabmantor.alumnes.labs.inspedralbes.cat/api.php/records/RESULTADOS")
-                .build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                Log.d("Prova", "FALLA");
-            }
-
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                parseJsonWithJsonObjectResultados(response);
-
-            }
-        });
-
-
-    }
-
-    void parseJsonWithJsonObjectResultados(Response response) throws IOException {
-        ResponseBody respBody = response.body();
-        String body = respBody.string();
-
-        try{
-            JSONArray jsonArray=new JSONArray(body);
-            for(int i=0;i<jsonArray.length();i++)
-            {
-                JSONObject jsonObject=jsonArray.getJSONObject(i);
-                id_equipo1=jsonObject.getInt("EQUIPO_1");
-                resultado=jsonObject.getString("RESULTADO");
-                id_equipo2=jsonObject.getInt("EQUIPO_2");
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-    private void consultaEquipos() {
-        final OkHttpClient client = new OkHttpClient();
-
-        Request request = new Request.Builder()
-                .url("http://a18gabmantor.alumnes.labs.inspedralbes.cat/api.php/records/EQUIPOS")
-                .build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                Log.d("Prova", "FALLA");
-            }
-
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                parseJsonWithJsonObjectEquipos(response);
-
-            }
-        });
-    }
-
-    private void parseJsonWithJsonObjectEquipos(Response response) throws IOException {
-
-        ResponseBody respBody = response.body();
-        String body = respBody.string();
-
-        try{
-            JSONArray jsonArray=new JSONArray(body);
-            for(int i=0;i<jsonArray.length();i++) {
-                partido = new Partido();
-                JSONObject jsonObject=jsonArray.getJSONObject(i);
-                String nombre_equipo1=jsonObject.getString("EQUIPO_1");
-                String nombre_equipo2=jsonObject.getString("EQUIPO_1");
-                partido.setEquipo1(nombre_equipo1);
-                partido.setEquipo2(nombre_equipo2);
-            }
-            partidos.add(partido);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
+        partido = new Partido();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         AdapterResultador adapterResultador = new AdapterResultador(partidos);
+
+        consultaTabla();
         recyclerView.setAdapter(adapterResultador);
+
     }
 
+    public void consultaTabla() {
 
+        Request request = new Request.Builder()
+                .url("http://a18gabmantor.alumnes.labs.inspedralbes.cat/api.php/records/RESULTADOS?join=EQUIPOS")
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                Log.d("Prova", "FALLA");
+            }
 
+            public void onResponse(Call call, Response response) throws IOException {
+
+                try (ResponseBody responseBody = response.body()) {
+                    if (!response.isSuccessful())
+                        throw new IOException("Unexpected code " + response);
+
+                    try {
+                        JSONObject jsObject = new JSONObject(responseBody.string());
+                        JSONArray jsonArray = jsObject.getJSONArray("records");
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                            //Guarda resultado del partido
+                            resultado = jsonObject.getString("RESULTADO");
+
+                            //Guarda el nombre de los equipos 1 y 2
+                            nom_equipo1 = jsonObject.getString("EQUIPO_1");
+                            JSONObject equipo1obj = new JSONObject(nom_equipo1);
+                            nom_equipo1 = equipo1obj.getString("NOMBRE");
+
+                            nom_equipo2 = jsonObject.getString("EQUIPO_2");
+                            JSONObject equipo2obj = new JSONObject(nom_equipo2);
+                            nom_equipo2 = equipo2obj.getString("NOMBRE");
+
+                           // Log.i("Dentro", nom_equipo1 + " " + resultado + " " + nom_equipo2);
+                            partido.setResultado(resultado);
+                            partido.setEquipo1(nom_equipo1);
+                            partido.setEquipo2(nom_equipo2);
+                            partidos.add(partido);
+
+                            //Log.i("Dentro Objeto", partido.getEquipo1() + " " + partido.getResultado() + " " + partido.getEquipo2());
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Log.d("Prova", "Falla Json");
+                    }
+                }
+            }
+        });
+    }
 }
