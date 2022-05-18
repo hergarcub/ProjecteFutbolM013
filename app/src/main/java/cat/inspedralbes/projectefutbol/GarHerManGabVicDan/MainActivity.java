@@ -12,6 +12,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,7 +32,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     final OkHttpClient client = new OkHttpClient();
     AdapterNoticias adapterNoticias;
     RecyclerView recyclerView;
@@ -36,12 +40,30 @@ public class MainActivity extends AppCompatActivity {
     Noticias noticia;
     String titulo;
     String noticiaTexto;
+    Spinner spinnerCategoria;
+    Spinner spinnerJornada;
+    Jornada jornada;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_noticias);
         recyclerView = findViewById(R.id.recyclerviewNoticias);
+        spinnerCategoria = findViewById(R.id.spinnerCategoria);
+       /* jornada = new Jornada();
+        ArrayList<String> jornadas = new ArrayList<>();
+        jornada.setJornada("1");*/
+
+
+        spinnerJornada = findViewById(R.id.spinnerJornada);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.jornades, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerJornada.setAdapter(adapter);
+
+        spinnerJornada = (Spinner) findViewById(R.id.spinnerJornada);
+        spinnerJornada.setOnItemSelectedListener(this);
+
         noticias = new ArrayList<>();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
@@ -159,4 +181,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }
