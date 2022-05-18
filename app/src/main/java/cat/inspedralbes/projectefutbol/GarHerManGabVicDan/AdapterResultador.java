@@ -1,6 +1,7 @@
 package cat.inspedralbes.projectefutbol.GarHerManGabVicDan;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,6 @@ public class AdapterResultador extends RecyclerView.Adapter<AdapterResultador.Vi
     private List<Partido> partidos;
     public AdapterResultador (List<Partido> partidos){
         this.partidos = partidos;
-
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -22,8 +22,6 @@ public class AdapterResultador extends RecyclerView.Adapter<AdapterResultador.Vi
         private final TextView equipo1;
         private final TextView equipo2;
         private final TextView resultado;
-
-
 
         public ViewHolder(View v) {
             super(v);
@@ -42,8 +40,6 @@ public class AdapterResultador extends RecyclerView.Adapter<AdapterResultador.Vi
             });
         }
 
-
-
         public TextView getEquipo1() {
             return equipo1;
         }
@@ -57,9 +53,6 @@ public class AdapterResultador extends RecyclerView.Adapter<AdapterResultador.Vi
         }
     }
 
-
-
-
     @Override
     public AdapterResultador.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(
@@ -71,6 +64,7 @@ public class AdapterResultador extends RecyclerView.Adapter<AdapterResultador.Vi
 
     @Override
     public void onBindViewHolder(AdapterResultador.ViewHolder holder, int position) {
+
         holder.getEquipo1().setText(partidos.get(position).getEquipo1());
         holder.getEquipo2().setText(partidos.get(position).getEquipo2());
         holder.getResultado().setText(partidos.get(position).getResultado());

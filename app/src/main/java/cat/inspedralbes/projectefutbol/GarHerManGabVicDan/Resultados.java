@@ -23,8 +23,9 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-public class Resultados extends AppCompatActivity {
+public class Resultados extends AppCompatActivity  {
     final OkHttpClient client = new OkHttpClient();
+    AdapterResultador adapterResultador;
     RecyclerView recyclerView;
     List<Partido> partidos;
     Partido partido;
@@ -38,12 +39,14 @@ public class Resultados extends AppCompatActivity {
         setContentView(R.layout.activity_resultados);
         recyclerView = findViewById(R.id.recyclerViewResultados);
         partidos = new ArrayList<>();
-        partido = new Partido();
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        AdapterResultador adapterResultador = new AdapterResultador(partidos);
+
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            adapterResultador = new AdapterResultador(partidos);
+            recyclerView.setAdapter(adapterResultador);
+
 
         consultaTabla();
-        recyclerView.setAdapter(adapterResultador);
+
 
     }
 
@@ -65,9 +68,11 @@ public class Resultados extends AppCompatActivity {
                         throw new IOException("Unexpected code " + response);
 
                     try {
+
                         JSONObject jsObject = new JSONObject(responseBody.string());
                         JSONArray jsonArray = jsObject.getJSONArray("records");
                         for (int i = 0; i < jsonArray.length(); i++) {
+                            partido = new Partido();
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
                             //Guarda resultado del partido
                             resultado = jsonObject.getString("RESULTADO");
@@ -81,19 +86,30 @@ public class Resultados extends AppCompatActivity {
                             JSONObject equipo2obj = new JSONObject(nom_equipo2);
                             nom_equipo2 = equipo2obj.getString("NOMBRE");
 
-                           // Log.i("Dentro", nom_equipo1 + " " + resultado + " " + nom_equipo2);
+                            //Log.i("Dentro", nom_equipo1 + " " + resultado + " " + nom_equipo2);
                             partido.setResultado(resultado);
                             partido.setEquipo1(nom_equipo1);
                             partido.setEquipo2(nom_equipo2);
                             partidos.add(partido);
 
-                            //Log.i("Dentro Objeto", partido.getEquipo1() + " " + partido.getResultado() + " " + partido.getEquipo2());
+                            Log.i("Dentro Objeto", partido.getEquipo1() + " " + partido.getResultado() + " " + partido.getEquipo2());
                         }
+
+                            Resultados.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Log.d("Run","run: corre");
+                                    Log.i("Run Objeto", partido.getEquipo1() + " " + partido.getResultado() + " " + partido.getEquipo2());
+                                    adapterResultador.notifyDataSetChanged();
+
+                                }
+                            });
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                         Log.d("Prova", "Falla Json");
                     }
+
                 }
             }
         });

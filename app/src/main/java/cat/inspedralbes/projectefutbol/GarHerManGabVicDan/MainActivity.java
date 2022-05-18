@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,6 +30,7 @@ import okhttp3.ResponseBody;
 
 public class MainActivity extends AppCompatActivity {
     final OkHttpClient client = new OkHttpClient();
+    AdapterNoticias adapterNoticias;
     RecyclerView recyclerView;
     List<Noticias> noticias;
     Noticias noticia;
@@ -41,16 +43,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_noticias);
         recyclerView = findViewById(R.id.recyclerviewNoticias);
         noticias = new ArrayList<>();
-        noticia = new Noticias();
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        AdapterNoticias adapterNoticias = new AdapterNoticias(noticias);
-        consultarNoticias();
+        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+        adapterNoticias = new AdapterNoticias(noticias);
         recyclerView.setAdapter(adapterNoticias);
+        consultarNoticias();
+
+
 
     }
 
     private void consultarNoticias() {
+
         Request request = new Request.Builder()
                 .url("http://a18gabmantor.alumnes.labs.inspedralbes.cat/api.php/records/NOTICIAS")
                 .build();
@@ -71,12 +75,13 @@ public class MainActivity extends AppCompatActivity {
                         JSONObject jsObject = new JSONObject(responseBody.string());
                         JSONArray jsonArray = jsObject.getJSONArray("records");
                         for (int i = 0; i < jsonArray.length(); i++) {
+                            noticia = new Noticias();
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
                             //Guarda resultado del partido
                             titulo = jsonObject.getString("TITULO");
                             noticiaTexto = jsonObject.getString("TEXTO");
 
-                             Log.i("Dentro", titulo + " " + noticiaTexto);
+                            Log.i("Dentro", titulo + " " + noticiaTexto);
 
                             noticia.setNoticia(noticiaTexto);
                             noticia.setTitulo(titulo);
@@ -88,9 +93,19 @@ public class MainActivity extends AppCompatActivity {
                         e.printStackTrace();
                         Log.d("Prova", "Falla Json");
                     }
+                    MainActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.d("sjdfbh","run: corre");
+                        adapterNoticias.notifyDataSetChanged();
+                        }
+                    });
+
                 }
             }
         });
+
+
     }
 
 
