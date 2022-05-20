@@ -12,7 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class AdapterResultador extends RecyclerView.Adapter<AdapterResultador.ViewHolder> {
-    private List<Partido> partidos;
+
+    public List<Partido> partidos;
+    Partido partido;
+    public String id_partido;
     public AdapterResultador (List<Partido> partidos){
         this.partidos = partidos;
     }
@@ -23,6 +26,7 @@ public class AdapterResultador extends RecyclerView.Adapter<AdapterResultador.Vi
         private final TextView equipo2;
         private final TextView resultado;
 
+
         public ViewHolder(View v) {
             super(v);
 
@@ -30,12 +34,20 @@ public class AdapterResultador extends RecyclerView.Adapter<AdapterResultador.Vi
             equipo2 = v.findViewById(R.id.textViewEq2);
             resultado = v.findViewById(R.id.textViewRes);
             resultado.setOnClickListener(new View.OnClickListener() {
+
+
                 @Override
                 public void onClick(View v) {
                     Intent intentDetails = new Intent(v.getContext(), DetallesPartido.class);
+
+                    Log.d("prueba","Element " + getAdapterPosition() + " clicked.");
+
+
+
+                    //intentDetails.putExtra("ID",id_partido);
+
                     v.getContext().startActivity(intentDetails);
                 }
-
 
             });
         }
@@ -68,6 +80,8 @@ public class AdapterResultador extends RecyclerView.Adapter<AdapterResultador.Vi
         holder.getEquipo1().setText(partidos.get(position).getEquipo1());
         holder.getEquipo2().setText(partidos.get(position).getEquipo2());
         holder.getResultado().setText(partidos.get(position).getResultado());
+
+
     }
 
 

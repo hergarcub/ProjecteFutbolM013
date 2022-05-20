@@ -1,12 +1,13 @@
 package cat.inspedralbes.projectefutbol.GarHerManGabVicDan;
 
-public class Partido {
+public class PartidoDetalles {
 
     String equipo1;
     String equipo2;
     String resultado;
-
+    String resultado2;
     String id_partido;
+
 
     public String getEquipo1() {
         return equipo1;
@@ -32,6 +33,13 @@ public class Partido {
         this.resultado = resultado;
     }
 
+    public String getResultado2() {
+        return resultado2;
+    }
+
+    public void setResultado2(String resultado) {
+        this.resultado2 = resultado2;
+    }
 
     public String getId_partido() {
         return id_partido;
@@ -40,5 +48,4 @@ public class Partido {
     public void setId_partido(String id_partido) {
         this.id_partido = id_partido;
     }
-
 }
