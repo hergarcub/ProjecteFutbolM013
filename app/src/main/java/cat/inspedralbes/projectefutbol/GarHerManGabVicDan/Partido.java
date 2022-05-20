@@ -1,12 +1,16 @@
 package cat.inspedralbes.projectefutbol.GarHerManGabVicDan;
 
-public class Partido {
+import java.io.Serializable;
+
+public class Partido implements Serializable {
 
     String equipo1;
     String equipo2;
     String resultado;
 
     String id_partido;
+
+
 
     public String getEquipo1() {
         return equipo1;

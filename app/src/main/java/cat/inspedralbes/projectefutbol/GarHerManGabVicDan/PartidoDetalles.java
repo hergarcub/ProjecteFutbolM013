@@ -5,6 +5,15 @@ public class PartidoDetalles {
     String equipo1;
     String equipo2;
     String resultado;
+
+    public PartidoDetalles(String equipo1, String equipo2, String resultado, String resultado2, String id_partido) {
+        this.equipo1 = equipo1;
+        this.equipo2 = equipo2;
+        this.resultado = resultado;
+        this.resultado2 = resultado2;
+        this.id_partido = id_partido;
+    }
+
     String resultado2;
     String id_partido;
 

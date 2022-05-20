@@ -32,6 +32,7 @@ public class DetallesPartido extends AppCompatActivity {
     RecyclerView recyclerView;
     List<PartidoDetalles> partidosDetalles;
     PartidoDetalles partidoDetalles;
+    String id_partido;
     String nom_equipo1;
     String resultado;
     String resultado2;
@@ -51,103 +52,41 @@ public class DetallesPartido extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerViewDetallesPartido);
         partidosDetalles = new ArrayList<>();
 
-            Intent intent = getIntent();
+
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapterDetallesPartido = new  AdapterPartido(partidosDetalles);
         recyclerView.setAdapter(adapterDetallesPartido);
 
-        id_partidoResultados = intent.getStringExtra("ID");
-
         consultaDetallesPartido();
-        consultaGolesJugadores();
+      //  consultaGolesJugadores();
 
     }
-
-
 
     public void consultaDetallesPartido() {
+        Partido partido = (Partido) getIntent().getSerializableExtra("ObjetoPartido");
+        nom_equipo1 = partido.getEquipo1();
+        nom_equipo1Text = findViewById(R.id.equipo1DetallesPartidos);
+        nom_equipo1Text.setText(nom_equipo1);
 
-        Request request = new Request.Builder()
-                .url("http://a18gabmantor.alumnes.labs.inspedralbes.cat/api.php/records/RESULTADOS?join=EQUIPOS")
-                .build();
-        client.newCall(request).enqueue(new Callback() {
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-                Log.d("Prova", "FALLA");
-            }
+        nom_equipo2 = partido.getEquipo2();
+        nom_equipo2Text = findViewById(R.id.equipo2DetallesPartidos);
+        nom_equipo2Text.setText(nom_equipo2);
 
-            public void onResponse(Call call, Response response) throws IOException {
+        resultado = partido.getResultado();
+        String[] resultadosSplit = resultado.split("-");
+        resultado = resultadosSplit[0];
+        resultado2 = resultadosSplit[1];
 
-                try (ResponseBody responseBody = response.body()) {
-                    if (!response.isSuccessful())
-                        throw new IOException("Unexpected code " + response);
+        resultadoText = findViewById(R.id.resultadoDetallesEquipo1Partidos);
+        resultadoText.setText(resultado);
 
-                    try {
+        resultado2Text = findViewById(R.id.resultadoDetallesEquipo2Partidos);
+        resultado2Text.setText(resultado2);
 
-                        JSONObject jsObject = new JSONObject(responseBody.string());
-                        resultado = jsObject.getString("RESULTADO");
-
-                        if (id_partidoResultados == resultado) {
-
-                            String[] resultadosSplit = resultado.split("-");
-                            resultado = resultadosSplit[0];
-                            resultado2 = resultadosSplit[1];
-
-                            //Guarda el nombre de los equipos 1 y 2
-                            nom_equipo1 = jsObject.getString("EQUIPO_1");
-                            JSONObject equipo1obj = new JSONObject(nom_equipo1);
-                            nom_equipo1 = equipo1obj.getString("NOMBRE");
-
-                            nom_equipo2 = jsObject.getString("EQUIPO_2");
-                            JSONObject equipo2obj = new JSONObject(nom_equipo2);
-                            nom_equipo2 = equipo2obj.getString("NOMBRE");
-
-
-                           nom_equipo1Text= findViewById(R.id.equipo1DetallesPartidos);
-                           nom_equipo1Text.setText(nom_equipo1);
-
-                           nom_equipo2Text=findViewById(R.id.equipo2DetallesPartidos);
-                           nom_equipo2Text.setText(nom_equipo2);
-
-                           resultadoText = findViewById(R.id.resultadoDetallesEquipo1Partidos);
-                           resultadoText.setText(resultado);
-
-                           resultado2Text = findViewById(R.id.resultadoDetallesEquipo2Partidos);
-                           resultado2Text.setText(resultado2);
-
-                        }
-
-                            // Log.i("Dentro Objeto", partido.getEquipo1() + " " + partido.getResultado() + " " + partido.getEquipo2());
-
-
-                        DetallesPartido.this.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Log.d("Run","run: corre");
-                                //   Log.i("Run Objeto", partido.getEquipo1() + " " + partido.getResultado() + " " + partido.getEquipo2());
-                                adapterDetallesPartido.notifyDataSetChanged();
-
-                            }
-                        });
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Log.d("Prova", "Falla Json");
-                    }
-
-                }
-            }
-        });
     }
 
-
-
-
-
-
-
-    private void consultaGolesJugadores() {
+   private void consultaGolesJugadores() {
 
         Request request = new Request.Builder()
                 .url("http://a18gabmantor.alumnes.labs.inspedralbes.cat/api.php/records/GOLES?join=EQUIPOS")
@@ -169,7 +108,7 @@ public class DetallesPartido extends AppCompatActivity {
                         JSONObject jsObject = new JSONObject(responseBody.string());
                         JSONArray jsonArray = jsObject.getJSONArray("records");
                         for (int i = 0; i < jsonArray.length(); i++) {
-                            partidoDetalles = new PartidoDetalles();
+
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
                             //Guarda resultado del partido
                             resultado = jsonObject.getString("RESULTADO");

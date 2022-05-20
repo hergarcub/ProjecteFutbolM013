@@ -77,7 +77,7 @@ public class Resultados extends AppCompatActivity  {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
                             //Guarda resultado del partido
                             resultado = jsonObject.getString("RESULTADO");
-                            id_partido = jsObject.getString("ID");
+                            id_partido = jsonObject.getString("ID");
 
                             //Guarda el nombre de los equipos 1 y 2
                             nom_equipo1 = jsonObject.getString("EQUIPO_1");
