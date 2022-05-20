@@ -32,7 +32,7 @@ public class Resultados extends AppCompatActivity  {
     String nom_equipo1;
     String resultado;
     String nom_equipo2;
-
+    String id_partido;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,12 +70,14 @@ public class Resultados extends AppCompatActivity  {
                     try {
 
                         JSONObject jsObject = new JSONObject(responseBody.string());
+
                         JSONArray jsonArray = jsObject.getJSONArray("records");
                         for (int i = 0; i < jsonArray.length(); i++) {
                             partido = new Partido();
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
                             //Guarda resultado del partido
                             resultado = jsonObject.getString("RESULTADO");
+                            id_partido = jsObject.getString("ID");
 
                             //Guarda el nombre de los equipos 1 y 2
                             nom_equipo1 = jsonObject.getString("EQUIPO_1");
@@ -87,6 +89,7 @@ public class Resultados extends AppCompatActivity  {
                             nom_equipo2 = equipo2obj.getString("NOMBRE");
 
                             //Log.i("Dentro", nom_equipo1 + " " + resultado + " " + nom_equipo2);
+                            partido.setId_partido(id_partido);
                             partido.setResultado(resultado);
                             partido.setEquipo1(nom_equipo1);
                             partido.setEquipo2(nom_equipo2);
