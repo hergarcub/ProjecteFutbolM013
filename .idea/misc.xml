@@ -6,15 +6,18 @@
         <entry key="../../../../../../../../../dades/dades/Danilo/M08/android/android-projects/ProjecteFutbolM013/app/src/main/res/drawable/spinner_jornada.xml" value="0.35208333333333336" />
         <entry key="../../../../../../../../../dades/dades/Danilo/M08/android/android-projects/ProjecteFutbolM013/app/src/main/res/layout/activity_clasificacion.xml" value="0.1921875" />
         <entry key="../../../../../../../../../dades/dades/Danilo/M08/android/android-projects/ProjecteFutbolM013/app/src/main/res/layout/activity_detalles_partido.xml" value="0.33" />
+        <entry key="../../../../../../../../../dades/dades/Danilo/M08/android/android-projects/ProjecteFutbolM013/app/src/main/res/layout/activity_goleadores.xml" value="0.18958333333333333" />
         <entry key="../../../../../../../../../dades/dades/Danilo/M08/android/android-projects/ProjecteFutbolM013/app/src/main/res/layout/activity_home.xml" value="0.3359375" />
         <entry key="../../../../../../../../../dades/dades/Danilo/M08/android/android-projects/ProjecteFutbolM013/app/src/main/res/layout/activity_jornada.xml" value="0.3359375" />
         <entry key="../../../../../../../../../dades/dades/Danilo/M08/android/android-projects/ProjecteFutbolM013/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="../../../../../../../../../dades/dades/Danilo/M08/android/android-projects/ProjecteFutbolM013/app/src/main/res/layout/activity_resultados.xml" value="0.27314814814814814" />
         <entry key="../../../../../../../../../dades/dades/Danilo/M08/android/android-projects/ProjecteFutbolM013/app/src/main/res/layout/item_adapter.xml" value="0.3359375" />
+        <entry key="../../../../../../../../../dades/dades/Danilo/M08/android/android-projects/ProjecteFutbolM013/app/src/main/res/layout/item_jugadores.xml" value="0.25" />
         <entry key="../../../../../../../../../dades/dades/Danilo/M08/android/android-projects/ProjecteFutbolM013/app/src/main/res/layout/item_noticas.xml" value="0.25" />
         <entry key="../../../../../../../../../dades/dades/Danilo/M08/android/android-projects/ProjecteFutbolM013/app/src/main/res/layout/main_noticias.xml" value="0.33" />
         <entry key="../../../../../../../../../dades/dades/Danilo/M08/android/android-projects/ProjecteFutbolM013/app/src/main/res/layout/resultados.xml" value="0.3359375" />
         <entry key="../../../../../../../../../dades/dades/Danilo/M08/android/android-projects/ProjecteFutbolM013/app/src/main/res/menu/menu.xml" value="0.3359375" />
+        <entry key="../../../../../../../../../dades/dades/Danilo/M08/android/android-projects/ProjecteFutbolM013/app/src/main/res/xml/root_preferences.xml" value="0.3359375" />
         <entry key="../../../../../../../../../layout/custom_preview.xml" value="0.35104166666666664" />
         <entry key="../../../../../../../../dades/dades/HersonGarcia2nDam/M08/ProjectoFutbolM013/GitGubProjecte/app/src/main/res/layout/activity_detalles_partido.xml" value="0.33" />
         <entry key="../../../../../../../../dades/dades/HersonGarcia2nDam/M08/ProjectoFutbolM013/GitGubProjecte/app/src/main/res/layout/activity_goleadores.xml" value="0.13360507246376813" />
@@ -22,6 +25,13 @@
         <entry key="../../../../../../../../dades/dades/HersonGarcia2nDam/M08/ProjectoFutbolM013/ProjecteFutbol/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="../../../../../../../../dades/dades/HersonGarcia2nDam/M08/ProjectoFutbolM013/ProjecteFutbol/app/src/main/res/layout/content_menu.xml" value="0.234375" />
         <entry key="../../../../../../../../dades/dades/HersonGarcia2nDam/M08/ProjectoFutbolM013/ProjecteFutbol/app/src/main/res/menu/menu.xml" value="0.2578125" />
+        <entry key="..\:/Users/Danilo/Desktop/ProjecteFutbolM013/app/src/main/res/layout/activity_detalles_partido.xml" value="0.38697916666666665" />
+        <entry key="..\:/Users/Danilo/Desktop/ProjecteFutbolM013/app/src/main/res/layout/activity_home.xml" value="0.38697916666666665" />
+        <entry key="..\:/Users/Danilo/Desktop/ProjecteFutbolM013/app/src/main/res/layout/activity_resultados.xml" value="0.38697916666666665" />
+        <entry key="..\:/Users/Danilo/Desktop/ProjecteFutbolM013/app/src/main/res/layout/item_adapter.xml" value="0.38697916666666665" />
+        <entry key="..\:/Users/Danilo/Desktop/ProjecteFutbolM013/app/src/main/res/layout/item_jugadores.xml" value="0.38697916666666665" />
+        <entry key="..\:/Users/Danilo/Desktop/ProjecteFutbolM013/app/src/main/res/layout/item_noticas.xml" value="0.38697916666666665" />
+        <entry key="..\:/Users/Danilo/Desktop/ProjecteFutbolM013/app/src/main/res/layout/main_noticias.xml" value="0.38697916666666665" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/menu/menu.xml" value="0.2578125" />
       </map>

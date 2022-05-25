@@ -14,15 +14,6 @@
             android:name=".Resultados"
             android:exported="true" />
         <activity
-            android:name=".Jornada"
-            android:exported="true" />
-        <activity
-            android:name=".Goleadores"
-            android:exported="true" />
-        <activity
-            android:name=".Clasificacion"
-            android:exported="true" />
-        <activity
             android:name=".Home"
             android:exported="true" />
         <activity

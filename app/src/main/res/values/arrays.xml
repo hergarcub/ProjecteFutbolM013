@@ -1,13 +1,14 @@
 <resources>
     <!-- Reply Preference -->
     <string-array name="jornades">
+                <item>JORNADAS</item>
                 <item>1</item>
                 <item>2</item>
     </string-array>
 
-    <string-array name="reply_values">
-        <item>reply</item>
-        <item>reply_all</item>
+    <string-array name="Categorias">
+        <item>LIGA PRIMERA DIVISIÓN CATALANA FUTBOL SALA </item>
+        <item>LIGA SEGONA DIVISIÓN CATALANA FUTBOL SALA </item>
     </string-array>
 
 </resources>

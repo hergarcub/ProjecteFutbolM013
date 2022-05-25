@@ -11,15 +11,6 @@
         android:id="@+id/Resultados"
         android:title="Resultados" />
     <item
-        android:id="@+id/Clasificacion"
-        android:title="Clasificacion" />
-    <item
-        android:id="@+id/Goleadores"
-        android:title="Goleadores" />
-    <item
-        android:id="@+id/Jornades"
-        android:title="Jornades" />
-    <item
         android:id="@+id/Settings"
         android:title="Settings" />
 </menu>

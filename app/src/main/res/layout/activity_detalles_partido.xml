@@ -4,48 +4,61 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#03A9F4"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="98dp"
+        android:layout_height="89dp"
         android:orientation="horizontal">
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="46dp"
+        android:layout_height="75dp"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/equipo1DetallesPartidos"
             android:layout_width="202dp"
             android:layout_height="37dp"
-            android:text="Barca" />
+            android:text="Barca"
+            android:textAlignment="center"
+            android:textColor="#1E1E1E"
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/equipo2DetallesPartidos"
             android:layout_width="209dp"
             android:layout_height="37dp"
-            android:text="Madrid" />
+            android:text="Madrid"
+            android:textAlignment="center"
+            android:textColor="#1E1E1E"
+            android:textSize="30sp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="244dp">
-
-        <TextView
-            android:id="@+id/resultadoDetallesEquipo1Partidos"
-            android:layout_width="206dp"
-            android:layout_height="231dp"
-            android:text="TextView" />
+        android:layout_height="158dp">
 
         <TextView
             android:id="@+id/resultadoDetallesEquipo2Partidos"
             android:layout_width="202dp"
-            android:layout_height="234dp"
-            android:text="TextView" />
+            android:layout_height="155dp"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textColor="#1E1E1E"
+            android:textSize="34sp" />
+
+        <TextView
+            android:id="@+id/resultadoDetallesEquipo1Partidos"
+            android:layout_width="206dp"
+            android:layout_height="153dp"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textColor="#1E1E1E"
+            android:textSize="34sp" />
 
     </LinearLayout>
 
@@ -61,7 +74,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewDetallesPartido"
             android:layout_width="320dp"
-            android:layout_height="210dp" />
+            android:layout_height="250dp"
+            android:textAlignment="center" />
 
         <Space
             android:layout_width="0dp"

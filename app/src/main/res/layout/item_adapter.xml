@@ -7,19 +7,32 @@
 
     <TextView
         android:id="@+id/textViewEq1"
-        android:layout_width="125dp"
-        android:layout_height="25dp"
-        android:text="TextView" />
+        android:layout_width="127dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="TextView"
+        android:textAlignment="textEnd"
+        android:textColor="#101010"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/textViewRes"
-        android:layout_width="75dp"
+        android:layout_width="127dp"
         android:layout_height="25dp"
-        android:text="TextView" />
+        android:layout_weight="1"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textColor="#101010"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/textViewEq2"
         android:layout_width="150dp"
         android:layout_height="match_parent"
-        android:text="TextView" />
+        android:layout_weight="1"
+        android:text="TextView"
+        android:textAlignment="textStart"
+        android:textColor="#101010"
+        android:textSize="16sp" />
+
 </LinearLayout>

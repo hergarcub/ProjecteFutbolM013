@@ -4,10 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Looper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -37,29 +35,34 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     AdapterNoticias adapterNoticias;
     RecyclerView recyclerView;
     List<Noticias> noticias;
+    String[] jornadas;
     Noticias noticia;
     String titulo;
     String noticiaTexto;
     Spinner spinnerCategoria;
     Spinner spinnerJornada;
-    Jornada jornada;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_noticias);
         recyclerView = findViewById(R.id.recyclerviewNoticias);
-        spinnerCategoria = findViewById(R.id.spinnerCategoria);
-       /* jornada = new Jornada();
-        ArrayList<String> jornadas = new ArrayList<>();
-        jornada.setJornada("1");*/
-
-
         spinnerJornada = findViewById(R.id.spinnerJornada);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+        spinnerCategoria = findViewById(R.id.spinnerCategoria);
+
+        ArrayAdapter<CharSequence> adapterCategoria = ArrayAdapter.createFromResource(this,
+                R.array.Categorias, android.R.layout.simple_spinner_item);
+        adapterCategoria.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCategoria.setAdapter(adapterCategoria);
+
+        spinnerCategoria = (Spinner) findViewById(R.id.spinnerCategoria);
+        spinnerCategoria.setOnItemSelectedListener(this);
+
+        ArrayAdapter<CharSequence> adapterJornada = ArrayAdapter.createFromResource(this,
                 R.array.jornades, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerJornada.setAdapter(adapter);
+        adapterJornada.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerJornada.setAdapter(adapterJornada);
 
         spinnerJornada = (Spinner) findViewById(R.id.spinnerJornada);
         spinnerJornada.setOnItemSelectedListener(this);
@@ -72,6 +75,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         consultarNoticias();
 
 
+
+    }
+
+    public void onClickIrResultado(View view){
+        String JornadaValor = spinnerJornada.getSelectedItem().toString();
+        Intent intentResultado = new Intent(this, Resultados.class);
+        intentResultado.putExtra("jornada", JornadaValor);
+        startActivity(intentResultado);
 
     }
 
@@ -160,17 +171,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
                 return true;
 
-            case R.id.Clasificacion:
-
-                return true;
-
-            case R.id.Goleadores:
-
-                return true;
-
-            case R.id.Jornades:
-
-                return true;
 
             case R.id.Settings:
 

@@ -3,17 +3,40 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#03A9F4">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewResultados"
         android:layout_width="399dp"
         android:layout_height="305dp"
+        android:background="#03A9F4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.842"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.431" />
+        app:layout_constraintVertical_bias="0.715" />
+
+    <Spinner
+        android:id="@+id/spinnerJornadaResultados"
+        android:layout_width="135dp"
+        android:layout_height="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewResultados"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.977"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.496" />
+
+    <TextView
+        android:id="@+id/textViewCategoriaResultado"
+        android:layout_width="240dp"
+        android:layout_height="35dp"
+        android:text="TextView"
+        android:textColor="#090909"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewResultados"
+        app:layout_constraintEnd_toStartOf="@+id/spinnerJornadaResultados"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -30,7 +30,8 @@ public class DetallesPartido extends AppCompatActivity {
     final OkHttpClient client = new OkHttpClient();
     AdapterPartido adapterDetallesPartido;
     RecyclerView recyclerView;
-    List<PartidoDetalles> partidosDetalles;
+    List<Jugador> jugadores;
+    Jugador jugador;
     PartidoDetalles partidoDetalles;
     String id_partido;
     String nom_equipo1;
@@ -39,6 +40,7 @@ public class DetallesPartido extends AppCompatActivity {
     String nom_equipo2;
     String goles;
     String nomJugador;
+    String apellidoJugador;
     String id_partidoResultados;
     TextView nom_equipo1Text;
     TextView nom_equipo2Text;
@@ -50,16 +52,14 @@ public class DetallesPartido extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalles_partido);
         recyclerView = findViewById(R.id.recyclerViewDetallesPartido);
-        partidosDetalles = new ArrayList<>();
-
-
+        jugadores = new ArrayList<>();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapterDetallesPartido = new  AdapterPartido(partidosDetalles);
+        adapterDetallesPartido = new  AdapterPartido(jugadores);
         recyclerView.setAdapter(adapterDetallesPartido);
 
         consultaDetallesPartido();
-      //  consultaGolesJugadores();
+        consultaGolesJugadores();
 
     }
 
@@ -68,6 +68,8 @@ public class DetallesPartido extends AppCompatActivity {
         nom_equipo1 = partido.getEquipo1();
         nom_equipo1Text = findViewById(R.id.equipo1DetallesPartidos);
         nom_equipo1Text.setText(nom_equipo1);
+
+        id_partidoResultados = partido.getId_partido();
 
         nom_equipo2 = partido.getEquipo2();
         nom_equipo2Text = findViewById(R.id.equipo2DetallesPartidos);
@@ -89,7 +91,7 @@ public class DetallesPartido extends AppCompatActivity {
    private void consultaGolesJugadores() {
 
         Request request = new Request.Builder()
-                .url("http://a18gabmantor.alumnes.labs.inspedralbes.cat/api.php/records/GOLES?join=EQUIPOS")
+                .url("http://a18gabmantor.alumnes.labs.inspedralbes.cat/api.php/records/GOLES?join=JUGADORES")
                 .build();
         client.newCall(request).enqueue(new Callback() {
             public void onFailure(Call call, IOException e) {
@@ -108,26 +110,27 @@ public class DetallesPartido extends AppCompatActivity {
                         JSONObject jsObject = new JSONObject(responseBody.string());
                         JSONArray jsonArray = jsObject.getJSONArray("records");
                         for (int i = 0; i < jsonArray.length(); i++) {
-
+                            jugador = new Jugador();
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
-                            //Guarda resultado del partido
-                            resultado = jsonObject.getString("RESULTADO");
 
-                            //Guarda el nombre de los equipos 1 y 2
-                            nom_equipo1 = jsonObject.getString("EQUIPO_1");
-                            JSONObject equipo1obj = new JSONObject(nom_equipo1);
-                            nom_equipo1 = equipo1obj.getString("NOMBRE");
-
-                            nom_equipo2 = jsonObject.getString("EQUIPO_2");
-                            JSONObject equipo2obj = new JSONObject(nom_equipo2);
-                            nom_equipo2 = equipo2obj.getString("NOMBRE");
-
+                            id_partido = jsonObject.getString("ID_RESULTADOS");
+                            goles = jsonObject.getString("GOL");
+                            int golesNum = Integer.parseInt(goles);
+                            Log.d("Comprobacion", id_partido +" "+ id_partidoResultados);
+                            if (id_partidoResultados.equals(id_partido)) {
+                                for (int j = 0; j < golesNum; j++) {
+                                    Log.d("Goles", String.valueOf(golesNum));
+                                    jugador = new Jugador();
+                                    nomJugador = jsonObject.getString("ID_JUGADORES");
+                                    JSONObject jugadorObjeto = new JSONObject(nomJugador);
+                                    nomJugador = jugadorObjeto.getString("NOMBRE");
+                                    apellidoJugador = jugadorObjeto.getString("APELLIDO");
+                                    jugador.setNombre(nomJugador);
+                                    jugador.setApellido(apellidoJugador);
+                                    jugadores.add(jugador);
+                                }
+                            }
                             //Log.i("Dentro", nom_equipo1 + " " + resultado + " " + nom_equipo2);
-                            partidoDetalles.setResultado(resultado);
-                            partidoDetalles.setEquipo1(nom_equipo1);
-                            partidoDetalles.setEquipo2(nom_equipo2);
-                            partidosDetalles.add(partidoDetalles);
-
                            // Log.i("Dentro Objeto", partido.getEquipo1() + " " + partido.getResultado() + " " + partido.getEquipo2());
                         }
 
